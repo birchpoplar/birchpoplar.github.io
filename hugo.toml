@@ -1,0 +1,9 @@
+baseURL = 'https://birchpoplar.github.io/'
+languageCode = 'en-us'
+title = 'My Tech Blog'
+theme = "whiteplain"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
