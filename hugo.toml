@@ -1,7 +1,11 @@
 baseURL = 'https://birchpoplar.github.io/'
 languageCode = 'en-us'
 title = 'My Tech Blog'
-theme = "whiteplain"
+theme = "ritzy"
+
+[params]
+  author = "Johnnie Walker"
+  description = "Rather unstructured tech writings"
 
 [markup]
   [markup.goldmark]
