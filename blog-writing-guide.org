@@ -1,0 +1,95 @@
+#+title: Blog Writing Guide
+#+date: 2026-02-20
+#+author: Johnnie
+
+* Overview
+
+Blog posts are written as Org files in the =org/= directory and exported to Hugo Markdown using ox-hugo. Hugo then builds the site from =content/= into =public/=.
+
+#+begin_example
+org/                        ← write posts here (.org files)
+static/
+  images/                   ← place all images here
+content/
+  blog/                     ← ox-hugo exports .md files here (do not edit manually)
+public/                     ← hugo build output (do not edit manually)
+#+end_example
+
+* Creating a New Post
+
+1. Create a new =.org= file in the =org/= directory, e.g. =org/my-new-post.org=
+2. Add the required front matter at the top of the file (see template below)
+3. Write the post content in Org format
+4. Export to Hugo Markdown with =C-c C-e H h= in Emacs (ox-hugo export)
+5. Run =hugo server -D= to preview locally
+
+** Front Matter Template
+
+#+begin_src org
+,#+title: Your Post Title Here
+,#+date: 2026-02-20
+,#+draft: false
+,#+author: Johnnie
+,#+hugo_section: blog
+,#+hugo_base_dir: ..
+,#+export_file_name: your-post-title-here
+#+end_src
+
+- =#+draft: true= will hide the post from production but show it with =hugo server -D=
+- =#+export_file_name= sets the output =.md= filename and determines the post's URL slug — use lowercase with hyphens, e.g. =my-new-post= → published at =/my-new-post/=
+- =#+hugo_base_dir: ..= must always be =..= (one level up from =org/= to the repo root)
+- =#+hugo_section: blog= must always be =blog=
+
+* Images
+
+** Where to Place Images
+
+All images go in =static/images/=:
+
+#+begin_example
+static/
+  images/
+    my-post-image.png
+    another-image.jpg
+#+end_example
+
+Hugo copies =static/= verbatim to =public/=, so =static/images/foo.png= is served at =/images/foo.png=.
+
+Use a descriptive filename that includes the post name to avoid collisions, e.g. =agent-teams-diagram.png= rather than =screenshot.png=.
+
+** Referencing Images in Org
+
+Use an absolute URL path starting with =/images/= — do *not* use a =file:= link or relative path:
+
+#+begin_src org
+[[/images/my-post-image.png]]
+#+end_src
+
+ox-hugo converts this to =src="/images/my-post-image.png"= in the Hugo figure shortcode, which Hugo resolves correctly from =static/=.
+
+To add a caption:
+
+#+begin_src org
+,#+caption: My image caption
+[[/images/my-post-image.png]]
+#+end_src
+
+** What Not to Do
+
+| Incorrect                                  | Why                                             |
+|--------------------------------------------+-------------------------------------------------|
+| =[[file:../static/images/foo.png]]=        | ox-hugo copies the relative path literally      |
+| =[[file:foo.png]]=                         | Relative path, not a valid site URL             |
+| =/static/images/foo.png= in the URL bar   | Hugo strips the =static/= prefix when serving  |
+
+* Workflow Summary
+
+#+begin_example
+1. Add image to static/images/
+2. Create org/my-post.org with front matter
+3. Write content, link images as [[/images/filename.png]]
+4. C-c C-e H h  →  exports to content/blog/my-post.md
+5. hugo server -D  →  preview at http://localhost:1313
+6. Set #+draft: false when ready to publish
+7. git add + commit + push  →  GitHub Actions deploys to GitHub Pages
+#+end_example

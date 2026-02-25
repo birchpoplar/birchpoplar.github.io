@@ -1,0 +1,18 @@
+# Hugo build output
+public/
+resources/
+.hugo_build.lock
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Emacs
+*~
+\#*\#
+.elc
+.emacs.desktop
+.emacs.desktop.lock
+
+# Node (if ever used)
+node_modules/

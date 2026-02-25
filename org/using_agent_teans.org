@@ -1,0 +1,29 @@
+#+title: Using Agent Teams
+#+date: 2026-02-16
+#+draft: false
+#+author: Johnnie
+#+hugo_section: blog
+#+hugo_base_dir: ..
+#+export_file_name: using-agent-teams
+
+Check out Claude Code below:
+Check out Claude Code below:
+Check out Claude Code below:
+Check out Claude Code below:
+Check out Claude Code below:
+Check out Claude Code below:
+
+[[/images/claude-teams-1.png]]
+
+Tips I read were to require usage of cheaper models like Sonnet for the agents, and allow more expensive like Opus for the team lead.
+
+```
+## Execution
+- Create an agent team to explore implementation of the above
+- One team member should be on UI/UX in the browser interface
+- One team member should be on designing the integrations
+- One team member should be on designing the multiple company structure
+- One team member should ensure a standardized data model is adhered to
+- Use Sonnet models for all four team members
+- Use Opus for the team leader
+```
